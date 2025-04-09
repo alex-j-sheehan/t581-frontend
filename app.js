@@ -6,6 +6,7 @@ const ctx = canvas.getContext('2d');
 let currentColor = 'black';
 let drawing = false;
 let currentPath = [];
+let currentWidth = 1; // Default line width
 
 // Store all drawing paths
 let paths = [];
@@ -29,7 +30,7 @@ canvas.addEventListener('mouseup', () => {
     if (currentPath.length > 0) {
         paths.push({
             color: currentColor,
-            width: 1, // No stroke width for now
+            width: currentWidth, // Store the width of the stroke
             path: currentPath
         });
     }
@@ -63,7 +64,7 @@ function redrawCanvas() {
             ctx.lineTo(currentPath[i][0], currentPath[i][1]);
         }
         ctx.strokeStyle = currentColor;
-        ctx.lineWidth = 1; // No stroke width for now
+        ctx.lineWidth = currentWidth; // Set current stroke width
         ctx.stroke();
     }
 }
@@ -77,4 +78,36 @@ document.getElementById('redBtn').addEventListener('click', () => {
 });
 document.getElementById('blueBtn').addEventListener('click', () => {
     currentColor = 'blue';
+});
+document.getElementById('orangeBtn').addEventListener('click', () => {
+    currentColor = 'orange';
+});
+document.getElementById('yellowBtn').addEventListener('click', () => {
+    currentColor = 'yellow';
+});
+document.getElementById('greenBtn').addEventListener('click', () => {
+    currentColor = 'green';
+});
+document.getElementById('purpleBtn').addEventListener('click', () => {
+    currentColor = 'purple';
+});
+document.getElementById('pinkBtn').addEventListener('click', () => {
+    currentColor = 'pink';
+});
+document.getElementById('greyBtn').addEventListener('click', () => {
+    currentColor = 'grey';
+});
+
+// Handle stroke width change
+document.getElementById('width1').addEventListener('click', () => {
+    currentWidth = 1;
+});
+document.getElementById('width5').addEventListener('click', () => {
+    currentWidth = 5;
+});
+document.getElementById('width10').addEventListener('click', () => {
+    currentWidth = 10;
+});
+document.getElementById('width15').addEventListener('click', () => {
+    currentWidth = 15;
 });

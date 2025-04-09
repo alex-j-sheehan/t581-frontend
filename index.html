@@ -15,7 +15,8 @@
             cursor: crosshair;
         }
 
-        .color-buttons {
+        .color-buttons,
+        .width-buttons {
             margin: 20px;
         }
 
@@ -33,10 +34,26 @@
 </head>
 <body>
     <h1>Simple Drawing App</h1>
+    
+    <!-- Color Buttons -->
     <div class="color-buttons">
         <button id="blackBtn">Black</button>
         <button id="redBtn">Red</button>
         <button id="blueBtn">Blue</button>
+        <button id="orangeBtn">Orange</button>
+        <button id="yellowBtn">Yellow</button>
+        <button id="greenBtn">Green</button>
+        <button id="purpleBtn">Purple</button>
+        <button id="pinkBtn">Pink</button>
+        <button id="greyBtn">Grey</button>
+    </div>
+
+    <!-- Width Buttons -->
+    <div class="width-buttons">
+        <button id="width1">Width 1</button>
+        <button id="width5">Width 5</button>
+        <button id="width10">Width 10</button>
+        <button id="width15">Width 15</button>
     </div>
 
     <canvas id="canvas" width="800" height="600"></canvas>
