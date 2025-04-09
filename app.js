@@ -32,7 +32,6 @@ canvas.addEventListener('mouseup', () => {
             width: 1, // No stroke width for now
             path: currentPath
         });
-        updateDrawingInfo();
     }
 });
 
@@ -79,9 +78,3 @@ document.getElementById('redBtn').addEventListener('click', () => {
 document.getElementById('blueBtn').addEventListener('click', () => {
     currentColor = 'blue';
 });
-
-// Function to update the displayed paths information
-function updateDrawingInfo() {
-    const pathsInfo = JSON.stringify(paths, null, 2);
-    document.getElementById('paths').textContent = pathsInfo;
-}
