@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #canvas {
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+
+        .color-buttons {
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        #drawing-info {
+            margin-top: 20px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Drawing App</h1>
+    <div class="color-buttons">
+        <button id="blackBtn">Black</button>
+        <button id="redBtn">Red</button>
+        <button id="blueBtn">Blue</button>
+    </div>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+
+    <div id="drawing-info">
+        <h3>Paths Drawn:</h3>
+        <pre id="paths"></pre>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
