@@ -12,6 +12,10 @@ const App = () => {
     const [currentPath, setCurrentPath] = useState([]);
     const [isDrawing, setIsDrawing] = useState(false);
     
+    // Timer state
+    const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
+    const [timerActive, setTimerActive] = useState(false);
+    
     // App state
     const [currentScreen, setCurrentScreen] = useState('drawing'); // 'drawing' or 'voting'
     const [userDrawing, setUserDrawing] = useState(null);
@@ -148,10 +152,37 @@ const App = () => {
         setCurrentScreen('drawing');
     };
 
+    // Timer effect
+    useEffect(() => {
+        let interval;
+        if (timerActive && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft(prevTime => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0 && timerActive) {
+            setTimerActive(false);
+            handleSubmit(); // Auto-submit when timer reaches zero
+        }
+        return () => clearInterval(interval);
+    }, [timerActive, timeLeft]);
+
+    // Start timer when entering drawing screen
+    useEffect(() => {
+        if (currentScreen === 'drawing') {
+            setTimeLeft(30);
+            setTimerActive(true);
+        } else {
+            setTimerActive(false);
+        }
+    }, [currentScreen]);
+
     // Render the drawing screen
     const renderDrawingScreen = () => (
         <div>
             <h1>Drawing App</h1>
+            <div className="timer">
+                Time Remaining: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+            </div>
             <WinnersGallery winners={winners} />
             <div className="controls">
                 {Object.entries(colors).map(([name, color]) => (
