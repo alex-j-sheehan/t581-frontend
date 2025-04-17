@@ -105,4 +105,54 @@
     background: white;
     border: 1px solid #ccc;
     display: block;
+}
+
+.timer {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+    transition: color 0.5s ease;
+}
+
+.timer.warning {
+    color: #ff5722;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+.empty-drawing {
+    opacity: 0.7;
+    position: relative;
+}
+
+.empty-drawing::after {
+    content: 'No drawing to vote for';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.vote-btn.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
 } 

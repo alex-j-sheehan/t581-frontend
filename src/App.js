@@ -14,7 +14,8 @@ const App = () => {
     
     // Timer state
     const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
-    const [timerActive, setTimerActive] = useState(false);
+    const [timerActive, setTimerActive] = useState(true);
+    const [autoSubmitted, setAutoSubmitted] = useState(false);
     
     // App state
     const [currentScreen, setCurrentScreen] = useState('drawing'); // 'drawing' or 'voting'
@@ -36,12 +37,36 @@ const App = () => {
 
     const widths = [1, 5, 10, 15];
 
+    // Timer effect
+    useEffect(() => {
+        let interval;
+        if (timerActive && currentScreen === 'drawing' && timeLeft > 0) {
+            interval = setInterval(() => {
+                setTimeLeft(prevTime => prevTime - 1);
+            }, 1000);
+        } else if (timeLeft === 0 && currentScreen === 'drawing' && !autoSubmitted) {
+            // Time's up, submit the drawing
+            setAutoSubmitted(true);
+            handleSubmit();
+        }
+        return () => clearInterval(interval);
+    }, [timerActive, timeLeft, currentScreen, autoSubmitted]);
+
     // Load random drawings for the gallery
     useEffect(() => {
         if (currentScreen === 'voting') {
             // Get 5 random drawings from our sample data
             const randomDrawings = getRandomDrawings(5);
             setGalleryDrawings(randomDrawings);
+        }
+    }, [currentScreen]);
+
+    // Reset timer when returning to drawing screen
+    useEffect(() => {
+        if (currentScreen === 'drawing') {
+            setTimeLeft(30);
+            setTimerActive(true);
+            setAutoSubmitted(false);
         }
     }, [currentScreen]);
 
@@ -83,12 +108,10 @@ const App = () => {
     }, [paths, currentPath, currentColor, currentWidth]);
 
     const handleMouseDown = (e) => {
-        const canvas = canvasRef.current;
-        const rect = canvas.getBoundingClientRect();
+        setIsDrawing(true);
+        const rect = canvasRef.current.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
-        setIsDrawing(true);
         setCurrentPath([[x, y]]);
     };
 
@@ -122,19 +145,20 @@ const App = () => {
     };
 
     const handleSubmit = () => {
-        if (paths.length > 0) {
-            // Create a drawing object with a random ID
-            const drawing = {
-                id: Math.floor(Math.random() * 10000),
-                title: "Your Drawing",
-                paths: [...paths],
-                canvasWidth: 800,  // Store the original canvas dimensions
-                canvasHeight: 600
-            };
-            
-            setUserDrawing(drawing);
-            setCurrentScreen('voting');
-        }
+        setTimerActive(false);
+        
+        // Create a drawing object with a random ID
+        const drawing = {
+            id: Math.floor(Math.random() * 10000),
+            title: paths.length > 0 ? "Your Drawing" : "Artist was too busy tying their shoes to draw!",
+            paths: [...paths],
+            canvasWidth: 800,  // Store the original canvas dimensions
+            canvasHeight: 600,
+            isEmpty: paths.length === 0
+        };
+        
+        setUserDrawing(drawing);
+        setCurrentScreen('voting');
     };
 
     const handleSelectDrawing = (drawing) => {
@@ -152,38 +176,14 @@ const App = () => {
         setCurrentScreen('drawing');
     };
 
-    // Timer effect
-    useEffect(() => {
-        let interval;
-        if (timerActive && timeLeft > 0) {
-            interval = setInterval(() => {
-                setTimeLeft(prevTime => prevTime - 1);
-            }, 1000);
-        } else if (timeLeft === 0 && timerActive) {
-            setTimerActive(false);
-            handleSubmit(); // Auto-submit when timer reaches zero
-        }
-        return () => clearInterval(interval);
-    }, [timerActive, timeLeft]);
-
-    // Start timer when entering drawing screen
-    useEffect(() => {
-        if (currentScreen === 'drawing') {
-            setTimeLeft(30);
-            setTimerActive(true);
-        } else {
-            setTimerActive(false);
-        }
-    }, [currentScreen]);
-
     // Render the drawing screen
     const renderDrawingScreen = () => (
         <div>
             <h1>Drawing App</h1>
-            <div className="timer">
-                Time Remaining: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
-            </div>
             <WinnersGallery winners={winners} />
+            <div className={`timer ${timeLeft <= 10 ? 'warning' : ''}`}>
+                Time left: {timeLeft} seconds
+            </div>
             <div className="controls">
                 {Object.entries(colors).map(([name, color]) => (
                     <button
@@ -216,7 +216,6 @@ const App = () => {
                 <button 
                     className="submit-btn"
                     onClick={handleSubmit}
-                    disabled={paths.length === 0}
                 >
                     Submit Drawing
                 </button>
