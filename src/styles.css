@@ -149,4 +149,71 @@ body {
 
 .vote-btn:hover {
     background-color: #1976D2;
+}
+
+.name-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.name-prompt h2 {
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.error {
+  color: #dc3545;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.submit-button {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.voting-screen {
+  padding: 20px;
+}
+
+.voting-screen h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
 } 

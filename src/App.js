@@ -3,24 +3,19 @@ import './App.css';
 import DrawingScreen from './components/DrawingScreen';
 import VotingScreen from './components/VotingScreen';
 import PromptScreen from './components/PromptScreen';
-import { getRandomDrawings } from './data/sampleDrawings';
+import NamePrompt from './components/NamePrompt';
+import userClient from './data/UserClient';
 
 function App() {
     // App state
-    const [currentScreen, setCurrentScreen] = useState('prompt'); // Changed initial screen to 'prompt'
+    const [currentScreen, setCurrentScreen] = useState('name'); // Start with name prompt
     const [userDrawing, setUserDrawing] = useState(null);
-    const [galleryDrawings, setGalleryDrawings] = useState([]);
     const [winners, setWinners] = useState([]); // Track winning drawings
     const [currentPrompt, setCurrentPrompt] = useState('');
 
-    // Load random drawings when voting screen is active
-    useEffect(() => {
-        if (currentScreen === 'voting') {
-            // Get 5 random drawings from our sample data
-            const randomDrawings = getRandomDrawings(5);
-            setGalleryDrawings(randomDrawings);
-        }
-    }, [currentScreen]);
+    const handleNameSubmitted = () => {
+        setCurrentScreen('prompt');
+    };
 
     const handlePromptComplete = (prompt) => {
         setCurrentPrompt(prompt);
@@ -29,6 +24,11 @@ function App() {
 
     const handleDrawingComplete = (drawing) => {
         setUserDrawing(drawing);
+        // Assign the drawing to the current user
+        const currentUser = userClient.getCurrentUser();
+        if (currentUser) {
+            currentUser.setDrawing(drawing);
+        }
         setCurrentScreen('voting');
     };
 
@@ -39,6 +39,9 @@ function App() {
 
     return (
         <div className="App">
+            {currentScreen === 'name' && (
+                <NamePrompt onNameSubmitted={handleNameSubmitted} />
+            )}
             {currentScreen === 'prompt' && (
                 <PromptScreen onPromptComplete={handlePromptComplete} />
             )}
@@ -52,7 +55,6 @@ function App() {
             {currentScreen === 'voting' && (
                 <VotingScreen
                     userDrawing={userDrawing}
-                    galleryDrawings={galleryDrawings}
                     onVoteComplete={handleVoteComplete}
                 />
             )}
