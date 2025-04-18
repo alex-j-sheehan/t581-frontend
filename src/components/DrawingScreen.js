@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import WinnersGallery from './WinnersGallery';
+import userClient from '../data/UserClient';
 
 const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false }) => {
   // Drawing state
@@ -148,6 +149,14 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false
           <p className="prompt-text">{prompt}</p>
         </div>
       )}
+      
+      {/* Status Indicator */}
+      <div className="drawing-status-container">
+        <div className={`drawing-status ${isJudgeMode ? 'judge' : 'player'}`}>
+          {isJudgeMode ? '👑 You are the Judge' : '🎨 You are a Player'}
+        </div>
+      </div>
+
       <div className="controls">
         {Object.entries(colors).map(([name, color]) => (
           <button

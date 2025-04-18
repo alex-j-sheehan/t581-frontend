@@ -19,6 +19,7 @@ function App() {
     const [currentJudge, setCurrentJudge] = useState(null);
     const [isFirstRound, setIsFirstRound] = useState(true); // Track if this is the first round
     const [autoSelectedWinner, setAutoSelectedWinner] = useState(null); // Track auto-selected winner
+    const [usedPrompts, setUsedPrompts] = useState([]); // Track which prompts have been used
 
     const handleNameSubmitted = () => {
         // After name is submitted, show the players intro screen
@@ -30,8 +31,13 @@ function App() {
         setCurrentScreen('prompt');
     };
 
-    const handlePromptComplete = (prompt) => {
+    const handlePromptComplete = (prompt, question) => {
         setCurrentPrompt(prompt);
+        
+        // Add the question to used prompts
+        if (question) {
+            setUsedPrompts(prev => [...prev, question]);
+        }
         
         // Clear the user's drawing when starting a new round
         setUserDrawing(null);
@@ -148,7 +154,10 @@ function App() {
                 <PlayersIntroScreen onIntroComplete={handlePlayersIntroComplete} />
             )}
             {currentScreen === 'prompt' && (
-                <PromptScreen onPromptComplete={handlePromptComplete} />
+                <PromptScreen 
+                    onPromptComplete={handlePromptComplete} 
+                    usedPrompts={usedPrompts}
+                />
             )}
             {currentScreen === 'drawing' && (
                 <>
