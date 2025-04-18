@@ -31,10 +31,19 @@ const RoundCounter = ({ roundNumber, maxRounds }) => {
             key={roundNumber}
             style={{ 
                 backgroundColor: backgroundColor,
-                borderColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 35%)`
+                borderColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 35%)`,
+                boxShadow: `0 4px 8px rgba(0, 0, 0, 0.3)`,
+                padding: '10px 15px',
+                borderRadius: '12px',
+                fontWeight: 'bold',
+                fontSize: '1.1rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
             }}
         >
-            Round {roundNumber} of {maxRounds}
+            <span style={{ fontSize: '0.8rem', marginBottom: '2px', opacity: 0.8 }}>Current Round</span>
+            <span style={{ fontSize: '1.3rem' }}>{roundNumber} of {maxRounds}</span>
         </div>
     );
 };
@@ -236,6 +245,7 @@ function App() {
                 <PromptScreen 
                     onPromptComplete={handlePromptComplete} 
                     usedPrompts={usedPrompts}
+                    roundNumber={roundNumber}
                 />
             )}
             {currentScreen === 'drawing' && (

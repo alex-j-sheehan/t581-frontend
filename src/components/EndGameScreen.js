@@ -50,7 +50,7 @@ const EndGameScreen = ({ winners, onPlayAgain }) => {
       
       <div className="all-winners-gallery">
         <div className="comic-header">
-          <h2>Your Winning Comic Strip</h2>
+          <h2>Your Brilliant and Beautiful Comic Strip:</h2>
         </div>
         
         <div className="comic-strip-container">

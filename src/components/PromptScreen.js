@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { PROMPT_PAIRS } from '../constants/prompts';
+import { ROUND_PROMPTS } from '../constants/prompts';
 
-const PromptScreen = ({ onPromptComplete, usedPrompts = [] }) => {
+const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1 }) => {
   const [currentPair, setCurrentPair] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [finalPrompt, setFinalPrompt] = useState('');
   const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
-    // Get available prompts that haven't been used
-    const availablePrompts = PROMPT_PAIRS.filter(pair => !usedPrompts.includes(pair.question));
+    // Get round-specific prompts
+    const roundPrompts = ROUND_PROMPTS[roundNumber] || ROUND_PROMPTS[1];
     
-    // If all prompts have been used, reset the used prompts array
+    // Filter out prompts that have already been used
+    const availablePrompts = roundPrompts.filter(pair => !usedPrompts.includes(pair.question));
+    
     if (availablePrompts.length === 0) {
-      // Select a random prompt from all prompts
-      const randomIndex = Math.floor(Math.random() * PROMPT_PAIRS.length);
-      setCurrentPair(PROMPT_PAIRS[randomIndex]);
-      onPromptComplete(PROMPT_PAIRS[randomIndex].question);
+      // If all prompts for this round have been used, just pick a random one
+      const randomIndex = Math.floor(Math.random() * roundPrompts.length);
+      setCurrentPair(roundPrompts[randomIndex]);
     } else {
-      // Select a random prompt from available prompts
+      // Select a random prompt from available prompts for this round
       const randomIndex = Math.floor(Math.random() * availablePrompts.length);
       setCurrentPair(availablePrompts[randomIndex]);
     }
-  }, [usedPrompts, onPromptComplete]);
+  }, [usedPrompts, roundNumber, onPromptComplete]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,6 +58,22 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [] }) => {
     <div className="prompt-screen">
       {!showPrompt ? (
         <div className="question-container">
+          <div 
+            className="round-indicator"
+            style={{
+              backgroundColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 45%)`,
+              color: 'white',
+              padding: '5px 15px',
+              borderRadius: '20px',
+              fontWeight: 'bold',
+              display: 'inline-block',
+              marginBottom: '15px',
+              fontSize: '1rem',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            }}
+          >
+            Round {roundNumber}
+          </div>
           <h2>Answer this question:</h2>
           <p className="question">{currentPair.question}</p>
           <form onSubmit={handleSubmit}>
@@ -74,6 +91,22 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [] }) => {
         </div>
       ) : (
         <div className="prompt-container">
+          <div 
+            className="round-indicator"
+            style={{
+              backgroundColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 45%)`,
+              color: 'white',
+              padding: '5px 15px',
+              borderRadius: '20px',
+              fontWeight: 'bold',
+              display: 'inline-block',
+              marginBottom: '15px',
+              fontSize: '1rem',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            }}
+          >
+            Round {roundNumber}
+          </div>
           <h2>Your Drawing Prompt:</h2>
           <p className="prompt">{finalPrompt}</p>
           <p className="loading">Preparing your canvas...</p>
