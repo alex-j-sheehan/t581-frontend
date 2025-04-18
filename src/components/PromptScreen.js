@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { PROMPT_PAIRS } from '../constants/prompts';
 
-const PromptScreen = ({ onPromptComplete }) => {
+const PromptScreen = ({ onPromptComplete, usedPrompts = [] }) => {
   const [currentPair, setCurrentPair] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [finalPrompt, setFinalPrompt] = useState('');
   const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
-    // Randomly select a prompt pair when component mounts
-    const randomIndex = Math.floor(Math.random() * PROMPT_PAIRS.length);
-    setCurrentPair(PROMPT_PAIRS[randomIndex]);
-  }, []);
+    // Get available prompts that haven't been used
+    const availablePrompts = PROMPT_PAIRS.filter(pair => !usedPrompts.includes(pair.question));
+    
+    // If all prompts have been used, reset the used prompts array
+    if (availablePrompts.length === 0) {
+      // Select a random prompt from all prompts
+      const randomIndex = Math.floor(Math.random() * PROMPT_PAIRS.length);
+      setCurrentPair(PROMPT_PAIRS[randomIndex]);
+      onPromptComplete(PROMPT_PAIRS[randomIndex].question);
+    } else {
+      // Select a random prompt from available prompts
+      const randomIndex = Math.floor(Math.random() * availablePrompts.length);
+      setCurrentPair(availablePrompts[randomIndex]);
+    }
+  }, [usedPrompts, onPromptComplete]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +47,7 @@ const PromptScreen = ({ onPromptComplete }) => {
 
     // Wait a moment to show the filled prompt before advancing
     setTimeout(() => {
-      onPromptComplete(filledPrompt);
+      onPromptComplete(filledPrompt, currentPair.question);
     }, 3000);
   };
 
