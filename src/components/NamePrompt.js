@@ -26,6 +26,9 @@ const NamePrompt = ({ onNameSubmitted }) => {
 
   return (
     <div className="name-prompt">
+      <div className="comic-title">
+        LAUGH LAB GAMES
+      </div>
       <h2>Welcome to the Drawing Game!</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
