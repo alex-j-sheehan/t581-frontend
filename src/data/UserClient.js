@@ -105,6 +105,19 @@ class UserClient {
     this.generateMockDrawings();
     return this.users;
   }
+  
+  // Reset all users' state for a new game
+  resetAllUsers() {
+    // Clear current users
+    this.users = [];
+    // Clear current user
+    this.currentUser = null;
+    // Clear current judge
+    this.currentJudge = null;
+    // Generate new random users
+    this.generateRandomUsers();
+    return this.users;
+  }
 }
 
 export default new UserClient(); // Export a singleton instance 

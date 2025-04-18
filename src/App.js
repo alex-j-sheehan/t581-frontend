@@ -8,10 +8,14 @@ import JudgeWaitingScreen from './components/JudgeWaitingScreen';
 import WaitingForJudgeScreen from './components/WaitingForJudgeScreen';
 import PlayersIntroScreen from './components/PlayersIntroScreen';
 import WinnerShowcaseScreen from './components/WinnerShowcaseScreen';
+import EndGameScreen from './components/EndGameScreen';
 import userClient from './data/UserClient';
 
+// Constants
+const MAX_ROUNDS = 4;
+
 // Simple RoundCounter component to display in the corner
-const RoundCounter = ({ roundNumber }) => {
+const RoundCounter = ({ roundNumber, maxRounds }) => {
     // Generate a unique color based on the round number
     const getColorFromNumber = (num) => {
         // Create a pseudo-random hue based on the number
@@ -30,7 +34,7 @@ const RoundCounter = ({ roundNumber }) => {
                 borderColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 35%)`
             }}
         >
-            Round #{roundNumber}
+            Round {roundNumber} of {maxRounds}
         </div>
     );
 };
@@ -133,11 +137,36 @@ function App() {
     };
 
     const handleWinnerShowcaseComplete = () => {
-        // Increment the round number
-        setRoundNumber(prevRound => prevRound + 1);
+        // Check if we've reached the maximum number of rounds
+        if (roundNumber >= MAX_ROUNDS) {
+            // If yes, show the end game screen
+            setCurrentScreen('end-game');
+        } else {
+            // If not, increment the round number and continue
+            setRoundNumber(prevRound => prevRound + 1);
+            // Return to prompt screen for next round
+            setCurrentScreen('prompt');
+        }
+    };
+
+    // Handle playing a new game
+    const handlePlayAgain = () => {
+        // Reset all game state
+        setWinners([]);
+        setCurrentPrompt('');
+        setIsJudge(false);
+        setCurrentJudge(null);
+        setIsFirstRound(true);
+        setAutoSelectedWinner(null);
+        setUsedPrompts([]);
+        setCurrentWinner(null);
+        setRoundNumber(1);
         
-        // Return to prompt screen for next round
-        setCurrentScreen('prompt');
+        // Reset user client state
+        userClient.resetAllUsers();
+        
+        // Go back to the name prompt to start fresh
+        setCurrentScreen('name');
     };
 
     // Auto-select a winner for the fake judge
@@ -192,9 +221,9 @@ function App() {
 
     return (
         <div className="App">
-            {/* Show round counter on all screens except the initial name prompt and players intro */}
-            {currentScreen !== 'name' && currentScreen !== 'players-intro' && (
-                <RoundCounter roundNumber={roundNumber} />
+            {/* Show round counter on all screens except the initial name prompt, players intro, and end game */}
+            {currentScreen !== 'name' && currentScreen !== 'players-intro' && currentScreen !== 'end-game' && (
+                <RoundCounter roundNumber={roundNumber} maxRounds={MAX_ROUNDS} />
             )}
             
             {currentScreen === 'name' && (
@@ -247,6 +276,12 @@ function App() {
                 <WinnerShowcaseScreen
                     winner={currentWinner}
                     onComplete={handleWinnerShowcaseComplete}
+                />
+            )}
+            {currentScreen === 'end-game' && (
+                <EndGameScreen
+                    winners={winners}
+                    onPlayAgain={handlePlayAgain}
                 />
             )}
         </div>
