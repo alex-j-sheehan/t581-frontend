@@ -1,7 +1,7 @@
 .winners-gallery {
     width: 100%;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #B2D8D8;
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -164,7 +164,7 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #B2D8D8;
 }
 
 .question-container {
@@ -244,7 +244,7 @@
   align-items: center;
   padding: 20px;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #B2D8D8;
 }
 
 .judge-waiting-screen .waiting-message {
@@ -286,7 +286,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #B2D8D8;
   min-height: 100vh;
 }
 
