@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-const Gallery = ({ drawings, onSelectDrawing }) => {
+const Gallery = ({ drawings, onSelectDrawing, isJudge = false }) => {
   const canvasRefs = useRef([]);
 
   useEffect(() => {
@@ -78,15 +78,17 @@ const Gallery = ({ drawings, onSelectDrawing }) => {
               width={400}
               height={300}
               className="gallery-canvas"
-              onClick={() => drawing && !drawing.isEmpty && onSelectDrawing(drawing)}
+              onClick={() => isJudge && drawing && !drawing.isEmpty && onSelectDrawing(drawing)}
             />
-            <button 
-              className={`vote-btn ${!drawing || drawing.isEmpty ? 'disabled' : ''}`}
-              onClick={() => drawing && !drawing.isEmpty && onSelectDrawing(drawing)}
-              disabled={!drawing || drawing.isEmpty}
-            >
-              {!drawing || drawing.isEmpty ? 'No drawing to vote for' : 'Vote for this drawing'}
-            </button>
+            {isJudge && (
+              <button 
+                className={`vote-btn ${!drawing || drawing.isEmpty ? 'disabled' : ''}`}
+                onClick={() => drawing && !drawing.isEmpty && onSelectDrawing(drawing)}
+                disabled={!drawing || drawing.isEmpty}
+              >
+                {!drawing || drawing.isEmpty ? 'No drawing to vote for' : 'Vote for this drawing'}
+              </button>
+            )}
           </div>
         ))}
       </div>

@@ -235,4 +235,66 @@
   color: #2c3e50;
   font-weight: bold;
   margin: 0.5rem 0;
+}
+
+/* Judge Waiting Screen */
+.judge-waiting-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.judge-waiting-screen .waiting-message {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+  max-width: 800px;
+  text-align: center;
+}
+
+.judge-waiting-screen .sub-message {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.judge-waiting-screen .timer-container {
+  margin-bottom: 20px;
+}
+
+.judge-waiting-screen .judge-drawing-area {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.judge-waiting-screen .auto-advance-message {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Waiting for Judge Screen */
+.waiting-for-judge-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.waiting-for-judge-screen .waiting-message {
+  margin-bottom: 40px;
+}
+
+.waiting-for-judge-screen .gallery-container {
+  width: 100%;
+  max-width: 1200px;
 } 

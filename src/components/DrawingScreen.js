@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import WinnersGallery from './WinnersGallery';
 
-const DrawingScreen = ({ onDrawingComplete, winners, prompt }) => {
+const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false }) => {
   // Drawing state
   const canvasRef = useRef(null);
   const [currentColor, setCurrentColor] = useState('black');
@@ -36,13 +36,13 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt }) => {
       interval = setInterval(() => {
         setTimeLeft(prevTime => prevTime - 1);
       }, 1000);
-    } else if (timeLeft === 0 && !autoSubmitted) {
-      // Time's up, submit the drawing
+    } else if (timeLeft === 0 && !autoSubmitted && !isJudgeMode) {
+      // Time's up, submit the drawing (only if not in judge mode)
       setAutoSubmitted(true);
       handleSubmit();
     }
     return () => clearInterval(interval);
-  }, [timerActive, timeLeft, autoSubmitted]);
+  }, [timerActive, timeLeft, autoSubmitted, isJudgeMode]);
 
   // Redraw canvas when paths or current path changes
   useEffect(() => {
@@ -127,20 +127,27 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt }) => {
       isEmpty: paths.length === 0
     };
     
-    onDrawingComplete(drawing);
+    // Only call onDrawingComplete if not in judge mode
+    if (!isJudgeMode) {
+      onDrawingComplete(drawing);
+    }
   };
 
   return (
     <div>
-      <h1>Drawing App</h1>
-      <WinnersGallery winners={winners} />
-      <div className={`timer ${timeLeft <= 10 ? 'warning' : ''}`}>
-        Time left: {timeLeft} seconds
-      </div>
-      <div className="prompt-display">
-        <h2>Draw this:</h2>
-        <p className="prompt-text">{prompt}</p>
-      </div>
+      {!isJudgeMode && <h1>Drawing App</h1>}
+      {!isJudgeMode && <WinnersGallery winners={winners} />}
+      {!isJudgeMode && (
+        <div className={`timer ${timeLeft <= 10 ? 'warning' : ''}`}>
+          Time left: {timeLeft} seconds
+        </div>
+      )}
+      {!isJudgeMode && (
+        <div className="prompt-display">
+          <h2>Draw this:</h2>
+          <p className="prompt-text">{prompt}</p>
+        </div>
+      )}
       <div className="controls">
         {Object.entries(colors).map(([name, color]) => (
           <button
@@ -170,12 +177,14 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt }) => {
         >
           Undo
         </button>
-        <button 
-          className="submit-btn"
-          onClick={handleSubmit}
-        >
-          Submit Drawing
-        </button>
+        {!isJudgeMode && (
+          <button 
+            className="submit-btn"
+            onClick={handleSubmit}
+          >
+            Submit Drawing
+          </button>
+        )}
       </div>
       <canvas
         ref={canvasRef}
