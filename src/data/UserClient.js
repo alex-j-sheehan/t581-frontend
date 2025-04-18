@@ -46,7 +46,7 @@ class UserClient {
     }
     
     // 50/50 chance for current user to be judge
-    const isCurrentUserJudge = Math.random() < 0.5;
+    const isCurrentUserJudge = Math.random() < 0.2;
     
     if (isCurrentUserJudge && this.currentUser) {
       this.currentUser.setJudge(true);

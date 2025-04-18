@@ -7,7 +7,33 @@ import NamePrompt from './components/NamePrompt';
 import JudgeWaitingScreen from './components/JudgeWaitingScreen';
 import WaitingForJudgeScreen from './components/WaitingForJudgeScreen';
 import PlayersIntroScreen from './components/PlayersIntroScreen';
+import WinnerShowcaseScreen from './components/WinnerShowcaseScreen';
 import userClient from './data/UserClient';
+
+// Simple RoundCounter component to display in the corner
+const RoundCounter = ({ roundNumber }) => {
+    // Generate a unique color based on the round number
+    const getColorFromNumber = (num) => {
+        // Create a pseudo-random hue based on the number
+        const hue = (num * 137.5) % 360; // Golden ratio * 100, modulo 360 degrees
+        return `hsl(${hue}, 70%, 45%)`;
+    };
+    
+    const backgroundColor = getColorFromNumber(roundNumber);
+    
+    return (
+        <div 
+            className="round-counter" 
+            key={roundNumber}
+            style={{ 
+                backgroundColor: backgroundColor,
+                borderColor: `hsl(${(roundNumber * 137.5) % 360}, 70%, 35%)`
+            }}
+        >
+            Round #{roundNumber}
+        </div>
+    );
+};
 
 function App() {
     // App state
@@ -20,6 +46,10 @@ function App() {
     const [isFirstRound, setIsFirstRound] = useState(true); // Track if this is the first round
     const [autoSelectedWinner, setAutoSelectedWinner] = useState(null); // Track auto-selected winner
     const [usedPrompts, setUsedPrompts] = useState([]); // Track which prompts have been used
+    const [currentWinner, setCurrentWinner] = useState(null); // Track the current round's winner
+    
+    // Initialize with round number 1
+    const [roundNumber, setRoundNumber] = useState(1);
 
     const handleNameSubmitted = () => {
         // After name is submitted, show the players intro screen
@@ -80,13 +110,14 @@ function App() {
         if (isJudge && selectedDrawing) {
             setWinners(prev => [...prev, selectedDrawing]);
             console.log("Judge selected winner:", selectedDrawing);
+            setCurrentWinner(selectedDrawing);
         }
         
         // Clear auto-selected winner if it exists
         setAutoSelectedWinner(null);
         
-        // Return to prompt screen for next round
-        setCurrentScreen('prompt');
+        // Show the winner showcase screen before moving to the next round
+        setCurrentScreen('winner-showcase');
     };
 
     const handleJudgeComplete = (autoSelectedWinner) => {
@@ -94,7 +125,16 @@ function App() {
         if (autoSelectedWinner) {
             setWinners(prevWinners => [...prevWinners, autoSelectedWinner]);
             console.log("Added auto-selected winner to winners array:", autoSelectedWinner);
+            setCurrentWinner(autoSelectedWinner);
         }
+        
+        // Show the winner showcase screen before moving to the next round
+        setCurrentScreen('winner-showcase');
+    };
+
+    const handleWinnerShowcaseComplete = () => {
+        // Increment the round number
+        setRoundNumber(prevRound => prevRound + 1);
         
         // Return to prompt screen for next round
         setCurrentScreen('prompt');
@@ -144,9 +184,19 @@ function App() {
     useEffect(() => {
         console.log("Winners array updated:", winners);
     }, [winners]);
+    
+    // Debug effect to log round number changes
+    useEffect(() => {
+        console.log("Round number changed to:", roundNumber);
+    }, [roundNumber]);
 
     return (
         <div className="App">
+            {/* Show round counter on all screens except the initial name prompt and players intro */}
+            {currentScreen !== 'name' && currentScreen !== 'players-intro' && (
+                <RoundCounter roundNumber={roundNumber} />
+            )}
+            
             {currentScreen === 'name' && (
                 <NamePrompt onNameSubmitted={handleNameSubmitted} />
             )}
@@ -192,6 +242,12 @@ function App() {
                         />
                     )}
                 </>
+            )}
+            {currentScreen === 'winner-showcase' && (
+                <WinnerShowcaseScreen
+                    winner={currentWinner}
+                    onComplete={handleWinnerShowcaseComplete}
+                />
             )}
         </div>
     );

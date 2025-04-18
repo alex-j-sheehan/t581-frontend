@@ -448,4 +448,120 @@
 .drawing-status:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Winner Showcase Screen */
+.winner-showcase-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #B2D8D8;
+  text-align: center;
+}
+
+.winner-showcase-screen .winner-title {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+.winner-showcase-screen .winner-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  max-width: 700px;
+  width: 100%;
+}
+
+.winner-showcase-screen .winner-container h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.winner-showcase-canvas {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.winner-showcase-screen .next-round-message {
+  font-size: 1.2rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Round Counter */
+.round-counter {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: white;
+  z-index: 1000; /* Ensure it's above other elements */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  animation: number-change 1s ease-out;
+}
+
+@keyframes number-change {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    filter: brightness(100%);
+  }
+  20% {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    filter: brightness(130%);
+  }
+  40% {
+    transform: scale(1.1);
+    filter: brightness(110%);
+  }
+  60% {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+    filter: brightness(120%);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    filter: brightness(100%);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 } 
