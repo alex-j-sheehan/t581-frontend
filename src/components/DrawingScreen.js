@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import WinnersGallery from './WinnersGallery';
+import FloatingTimer from './FloatingTimer';
 import userClient from '../data/UserClient';
 
 const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false }) => {
@@ -15,6 +16,9 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds timer
   const [timerActive, setTimerActive] = useState(true);
   const [autoSubmitted, setAutoSubmitted] = useState(false);
+  
+  // Total time constant
+  const TOTAL_TIME = 60;
 
   const colors = {
     black: 'black',
@@ -138,11 +142,7 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false
     <div>
       {!isJudgeMode && <h1>Drawing App</h1>}
       {!isJudgeMode && <WinnersGallery winners={winners} />}
-      {!isJudgeMode && (
-        <div className={`timer ${timeLeft <= 10 ? 'warning' : ''}`}>
-          Time left: {timeLeft} seconds
-        </div>
-      )}
+      {!isJudgeMode && <FloatingTimer timeLeft={timeLeft} totalTime={TOTAL_TIME} position="top-left" />}
       {!isJudgeMode && (
         <div className="prompt-display">
           <h2>Draw this:</h2>
