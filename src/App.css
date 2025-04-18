@@ -564,4 +564,347 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+/* End Game Screen */
+.end-game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #B2D8D8;
+  text-align: center;
+}
+
+.game-complete-title {
+  font-size: 3.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: scale-in 1s ease-out;
+}
+
+.thank-you-message {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 2rem;
+  animation: fade-in 1.5s ease-out;
+}
+
+.all-winners-gallery {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  animation: slide-up 1s ease-out;
+  overflow-x: auto;
+}
+
+.all-winners-gallery h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Comic Strip Layout */
+.comic-strip-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+  /* Allow scrolling on smaller screens */
+  overflow-x: auto;
+  padding: 10px 0;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  position: relative;
+}
+
+.comic-strip-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%23ddd" stroke-width="0.5"/></svg>');
+  opacity: 0.3;
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+.comic-panel {
+  flex: 0 0 auto;
+  width: 280px;
+  background-color: white;
+  border: 5px solid #000;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  transition: transform 0.3s ease;
+  margin: 15px 5px;
+}
+
+.comic-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid #000;
+  z-index: -1;
+}
+
+.comic-panel:hover {
+  transform: translateY(-8px) rotate(1deg);
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.round-label {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff5722;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 2px solid #000;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.end-game-canvas {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  background-color: white;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.winner-title {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 700;
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #fff9c4;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  position: relative;
+  /* Speech bubble styling */
+  margin-top: 5px;
+}
+
+.winner-title:after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-bottom: 10px solid #fff9c4;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+.play-again-btn {
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: bounce 1s infinite alternate;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.play-again-btn:hover {
+  background-color: #218838;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.play-again-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Fancy comic book style zing/pow effects */
+@keyframes zing {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: scale(1.5) rotate(20deg); opacity: 0; }
+}
+
+/* Rest of existing animations */
+@keyframes scale-in {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+/* Enhanced Comic Book Style Elements */
+.comic-title-banner {
+  background-color: #ff5722;
+  border: 5px solid #000;
+  border-radius: 10px;
+  padding: 10px 40px;
+  margin-bottom: 20px;
+  position: relative;
+  transform: rotate(-2deg);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
+  max-width: 90%;
+}
+
+.comic-title-banner::before,
+.comic-title-banner::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 3px solid #000;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.comic-title-banner::before {
+  left: 10px;
+}
+
+.comic-title-banner::after {
+  right: 10px;
+}
+
+.game-complete-title {
+  color: white !important;
+  text-shadow: 3px 3px 0 #000 !important;
+  font-family: 'Comic Sans MS', cursive, sans-serif !important;
+  letter-spacing: 2px;
+  margin: 0 !important;
+}
+
+.thank-you-message {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #ffeb3b;
+  border: 3px solid #000;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: inline-block;
+  transform: rotate(1deg);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
+
+.comic-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.sound-effect {
+  position: absolute;
+  right: 20px;
+  top: -20px;
+  background-color: #ffeb3b;
+  color: #f44336;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding: 15px;
+  border: 3px solid #000;
+  border-radius: 50%;
+  transform: rotate(15deg);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  animation: zoom-in 0.5s ease-out;
+  z-index: 100;
+}
+
+@keyframes zoom-in {
+  0% { transform: scale(0) rotate(15deg); }
+  80% { transform: scale(1.2) rotate(15deg); }
+  100% { transform: scale(1) rotate(15deg); }
+}
+
+.panel-connector {
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  height: 50px;
+  justify-content: space-between;
+}
+
+.connector-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.comic-ending {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 20px;
+  font-style: italic;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 #fff, 2px 2px 0 #000;
+}
+
+/* Make sure the comic strip container has enough padding for connectors */
+.comic-strip-container {
+  padding: 20px 30px !important;
+}
+
+/* Fix position for the round label */
+.round-label {
+  z-index: 20;
 } 
