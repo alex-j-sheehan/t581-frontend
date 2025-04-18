@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DrawingScreen from './DrawingScreen';
+import WinnersGallery from './WinnersGallery';
 
-const JudgeWaitingScreen = ({ onJudgeReady }) => {
+const JudgeWaitingScreen = ({ onJudgeReady, winners, onAutoSelectWinner }) => {
   const [timeLeft, setTimeLeft] = useState(60); // 60 seconds timer for display
   const [timerActive, setTimerActive] = useState(true);
   
@@ -24,7 +25,8 @@ const JudgeWaitingScreen = ({ onJudgeReady }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimerActive(false);
-      // Advance to voting screen when timer runs out
+      // Auto-select a winner and advance to voting screen when timer runs out
+      // We don't need to auto-select a winner for the judge, as they will select one manually
       onJudgeReady();
     }, waitTime * 1000);
     
@@ -40,15 +42,15 @@ const JudgeWaitingScreen = ({ onJudgeReady }) => {
         <div className={`timer ${timeLeft <= 10 ? 'warning' : ''}`}>
           Time left: {timeLeft} seconds
         </div>
-        <div className="auto-advance-message">
-          Auto-advancing in {waitTime} seconds...
-        </div>
       </div>
+      
+      {/* Display winners gallery for the judge */}
+      <WinnersGallery winners={winners} />
       
       <div className="judge-drawing-area">
         <DrawingScreen 
           onDrawingComplete={() => {}} // Empty function since we don't want to submit
-          winners={[]}
+          winners={winners}
           prompt="Draw whatever you want!"
           isJudgeMode={true}
         />

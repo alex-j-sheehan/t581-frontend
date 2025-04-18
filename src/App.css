@@ -297,4 +297,93 @@
 .waiting-for-judge-screen .gallery-container {
   width: 100%;
   max-width: 1200px;
+}
+
+/* Players Intro Screen */
+.players-intro-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.players-intro-screen h1 {
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.players-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 800px;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+}
+
+.player-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Auto-selected Winner Display */
+.auto-selected-winner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.auto-selected-winner h2 {
+  color: #4CAF50;
+  margin-bottom: 1rem;
+}
+
+.winner-display {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+.winner-display h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.winner-canvas {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
 } 
