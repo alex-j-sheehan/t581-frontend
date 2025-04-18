@@ -6,6 +6,7 @@ import PromptScreen from './components/PromptScreen';
 import NamePrompt from './components/NamePrompt';
 import JudgeWaitingScreen from './components/JudgeWaitingScreen';
 import WaitingForJudgeScreen from './components/WaitingForJudgeScreen';
+import PlayersIntroScreen from './components/PlayersIntroScreen';
 import userClient from './data/UserClient';
 
 function App() {
@@ -16,19 +17,38 @@ function App() {
     const [currentPrompt, setCurrentPrompt] = useState('');
     const [isJudge, setIsJudge] = useState(false);
     const [currentJudge, setCurrentJudge] = useState(null);
+    const [isFirstRound, setIsFirstRound] = useState(true); // Track if this is the first round
+    const [autoSelectedWinner, setAutoSelectedWinner] = useState(null); // Track auto-selected winner
 
     const handleNameSubmitted = () => {
+        // After name is submitted, show the players intro screen
+        setCurrentScreen('players-intro');
+    };
+
+    const handlePlayersIntroComplete = () => {
+        // After players intro, go to the prompt screen
         setCurrentScreen('prompt');
     };
 
     const handlePromptComplete = (prompt) => {
         setCurrentPrompt(prompt);
         
+        // Clear the user's drawing when starting a new round
+        setUserDrawing(null);
+        const currentUser = userClient.getCurrentUser();
+        if (currentUser) {
+            currentUser.setDrawing(null);
+        }
+        
+        // Reset auto-selected winner
+        setAutoSelectedWinner(null);
+        
         // Select a random judge for this round
         const judge = userClient.selectRandomJudge();
         setCurrentJudge(judge);
         setIsJudge(judge === userClient.getCurrentUser());
         
+        // Go directly to drawing screen
         setCurrentScreen('drawing');
     };
 
@@ -50,12 +70,44 @@ function App() {
     };
 
     const handleVoteComplete = (selectedDrawing) => {
-        setWinners(prev => [...prev, selectedDrawing]);
-        setCurrentScreen('prompt'); // Return to prompt screen for next round
+        // Only add the selected drawing to winners if the user is the judge and a drawing was selected
+        if (isJudge && selectedDrawing) {
+            setWinners(prev => [...prev, selectedDrawing]);
+            console.log("Judge selected winner:", selectedDrawing);
+        }
+        
+        // Clear auto-selected winner if it exists
+        setAutoSelectedWinner(null);
+        
+        // Return to prompt screen for next round
+        setCurrentScreen('prompt');
     };
 
-    const handleJudgeComplete = () => {
-        setCurrentScreen('prompt'); // Return to prompt screen for next round
+    const handleJudgeComplete = (autoSelectedWinner) => {
+        // If an auto-selected winner was passed, add it to the winners array
+        if (autoSelectedWinner) {
+            setWinners(prevWinners => [...prevWinners, autoSelectedWinner]);
+            console.log("Added auto-selected winner to winners array:", autoSelectedWinner);
+        }
+        
+        // Return to prompt screen for next round
+        setCurrentScreen('prompt');
+    };
+
+    // Auto-select a winner for the fake judge
+    const handleAutoSelectWinner = () => {
+        const allDrawings = getAllDrawings();
+        if (allDrawings.length > 0) {
+            // Randomly select a drawing as the winner
+            const randomIndex = Math.floor(Math.random() * allDrawings.length);
+            const selectedDrawing = allDrawings[randomIndex];
+            
+            // Store the auto-selected winner
+            setAutoSelectedWinner(selectedDrawing);
+            
+            // Log for debugging
+            console.log("Auto-selected winner:", selectedDrawing);
+        }
     };
 
     // Get all drawings for the gallery
@@ -82,10 +134,18 @@ function App() {
         return drawings;
     };
 
+    // Debug effect to log winners array changes
+    useEffect(() => {
+        console.log("Winners array updated:", winners);
+    }, [winners]);
+
     return (
         <div className="App">
             {currentScreen === 'name' && (
                 <NamePrompt onNameSubmitted={handleNameSubmitted} />
+            )}
+            {currentScreen === 'players-intro' && (
+                <PlayersIntroScreen onIntroComplete={handlePlayersIntroComplete} />
             )}
             {currentScreen === 'prompt' && (
                 <PromptScreen onPromptComplete={handlePromptComplete} />
@@ -93,7 +153,10 @@ function App() {
             {currentScreen === 'drawing' && (
                 <>
                     {isJudge ? (
-                        <JudgeWaitingScreen onJudgeReady={handleJudgeReady} />
+                        <JudgeWaitingScreen 
+                            onJudgeReady={handleJudgeReady} 
+                            winners={winners}
+                        />
                     ) : (
                         <DrawingScreen 
                             onDrawingComplete={handleDrawingComplete}
@@ -109,6 +172,8 @@ function App() {
                         <VotingScreen
                             userDrawing={userDrawing}
                             onVoteComplete={handleVoteComplete}
+                            autoSelectedWinner={autoSelectedWinner}
+                            isJudge={isJudge}
                         />
                     ) : (
                         <WaitingForJudgeScreen

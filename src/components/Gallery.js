@@ -68,7 +68,9 @@ const Gallery = ({ drawings, onSelectDrawing, isJudge = false }) => {
 
   return (
     <div className="gallery-container">
-      <h2>Vote for Your Favorite Drawing</h2>
+      {isJudge && (
+        <h2>Vote for Your Favorite Drawing</h2>
+      )}
       <div className="gallery-grid">
         {drawings.map((drawing, index) => (
           <div key={drawing?.id || index} className={`gallery-item ${drawing?.isEmpty ? 'empty-drawing' : ''}`}>
