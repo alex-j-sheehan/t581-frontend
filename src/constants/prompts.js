@@ -1,90 +1,209 @@
+// 
+
+
+// Organize prompts by round
+export const ROUND_PROMPTS = {
+  1: [
+    {
+      question: "What did you have for breakfast today?",
+      madLib: "Suddenly the main character is hit by __",
+      preWrittenAnswers: [
+        "toast and eggs",
+        "cereal with milk",
+        "a breakfast burrito",
+        "nothing, I skipped breakfast",
+        "coffee and a banana"
+      ]
+    },
+    {
+      question: "Name an object near you.",
+      madLib: "A wild __ suddenly charges in.",
+      preWrittenAnswers: [
+        "coffee mug",
+        "laptop",
+        "phone",
+        "water bottle",
+        "notebook"
+      ]
+    },
+    {
+      question: "What's something you recently bought?",
+      madLib: "Suddenly, a talking __ appears.",
+      preWrittenAnswers: [
+        "pair of shoes",
+        "book",
+        "coffee maker",
+        "headphones",
+        "groceries"
+      ]
+    },
+    {
+      question: "What animal do you relate to today?",
+      madLib: "Our hero? A misunderstood __ on a mission.",
+      preWrittenAnswers: [
+        "cat",
+        "dog",
+        "owl",
+        "dolphin",
+        "bear"
+      ]
+    },
+    {
+      question: "What's your favorite snack?",
+      madLib: "The main character discovers that their neighbor is secretly __",
+      preWrittenAnswers: [
+        "chips and salsa",
+        "chocolate",
+        "popcorn",
+        "pretzels",
+        "fruit"
+      ]
+    }
+  ],
+  2: [
+    {
+      question: "What was your favorite toy as a child?",
+      madLib: "The ground shakes and out comes a giant __.",
+      preWrittenAnswers: [
+        "teddy bear",
+        "LEGO set",
+        "action figure",
+        "bicycle",
+        "game console"
+      ]
+    },
+    {
+      question: "What's something you always carry with you?",
+      madLib: "Without warning, a wild __ blocks the path.",
+      preWrittenAnswers: [
+        "phone",
+        "wallet",
+        "keys",
+        "water bottle",
+        "pen"
+      ]
+    },
+    {
+      question: "What's your favorite work from home outfit?",
+      madLib: "Suddenly, the sky fills with flying __.",
+      preWrittenAnswers: [
+        "sweatpants",
+        "pajamas",
+        "jeans and t-shirt",
+        "leggings",
+        "shorts"
+      ]
+    },
+    {
+      question: "What's your go-to breakfast item?",
+      madLib: "There's an ambush of falling __.",
+      preWrittenAnswers: [
+        "toast",
+        "coffee",
+        "eggs",
+        "cereal",
+        "banana"
+      ]
+    }
+  ],
+  3: [
+    {
+      question: "What's a word or phrase you say too much?",
+      madLib: "A strange voice whispered, '__', and time froze.",
+      preWrittenAnswers: [
+        "actually",
+        "literally",
+        "basically",
+        "you know",
+        "awesome"
+      ]
+    },
+    {
+      question: "What's something you've lost recently?",
+      madLib: "Out of a hidden door rolled a mysterious __.",
+      preWrittenAnswers: [
+        "my keys",
+        "socks",
+        "headphones",
+        "charger",
+        "sunglasses"
+      ]
+    },
+    {
+      question: "What's an item you'd bring to a dinner party?",
+      madLib: "Suddenly, everything turned into __.",
+      preWrittenAnswers: [
+        "wine",
+        "dessert",
+        "flowers",
+        "board game",
+        "cheese plate"
+      ]
+    },
+    {
+      question: "What's a job you'd be terrible at?",
+      madLib: "To fix everything, they had to call a __.",
+      preWrittenAnswers: [
+        "surgeon",
+        "pilot",
+        "public speaker",
+        "accountant",
+        "chef"
+      ]
+    }
+  ],
+  4: [
+    {
+      question: "What's something you'd bring to a picnic?",
+      madLib: "In the end, they all floated away on a flying __.",
+      preWrittenAnswers: [
+        "sandwich",
+        "blanket",
+        "fruit salad",
+        "chips",
+        "drinks"
+      ]
+    },
+    {
+      question: "What's a song you secretly love?",
+      madLib: "As everyone cheered, someone whispered the magical words '__'.",
+      preWrittenAnswers: [
+        "Baby One More Time",
+        "Never Gonna Give You Up",
+        "Dancing Queen",
+        "Barbie Girl",
+        "What Makes You Beautiful"
+      ]
+    },
+    {
+      question: "What's something you'd never bring to the beach?",
+      madLib: "And so, they swam away on a giant __.",
+      preWrittenAnswers: [
+        "laptop",
+        "formal shoes",
+        "work documents",
+        "expensive jewelry",
+        "chocolate"
+      ]
+    },
+    {
+      question: "What's the last kitchen item you used?",
+      madLib: "To celebrate, everyone wore hats shaped like a __.",
+      preWrittenAnswers: [
+        "coffee mug",
+        "spatula",
+        "plate",
+        "fork",
+        "cutting board"
+      ]
+    }
+  ],
+};
+
+// Keep the PROMPT_PAIRS available for backwards compatibility if needed
 export const PROMPT_PAIRS = [
-  {
-    question: "What did you have for breakfast today?",
-    madLib: "Suddenly the main character is hit by __",
-    preWrittenAnswers: [
-      "a flying pancake",
-      "a rogue waffle",
-      "a breakfast burrito",
-      "a cereal bowl",
-      "a coffee cup"
-    ]
-  },
-  {
-    question: "What's the weirdest thing you've seen someone do in public?",
-    madLib: "The main character discovers that their neighbor is secretly __",
-    preWrittenAnswers: [
-      "a professional mime",
-      "a superhero in training",
-      "a time traveler",
-      "a robot",
-      "a wizard"
-    ]
-  },
-  {
-    question: "What's your favorite way to waste time?",
-    madLib: "The main character's superpower is the ability to __",
-    preWrittenAnswers: [
-      "make time stand still",
-      "turn boredom into fun",
-      "create infinite entertainment",
-      "summon endless distractions",
-      "generate infinite memes"
-    ]
-  },
-  {
-    question: "What's the most embarrassing thing that's happened to you?",
-    madLib: "The main character's greatest fear is __",
-    preWrittenAnswers: [
-      "tripping in public",
-      "forgetting their own name",
-      "wearing mismatched shoes",
-      "accidentally sending a text to the wrong person",
-      "showing up to a party on the wrong day"
-    ]
-  },
-  {
-    question: "What's your favorite way to relax?",
-    madLib: "The main character's secret talent is __",
-    preWrittenAnswers: [
-      "sleeping anywhere",
-      "finding the comfiest spot",
-      "creating perfect relaxation zones",
-      "mastering the art of doing nothing",
-      "inventing new ways to chill"
-    ]
-  },
-  {
-    question: "What's the most unusual food you've ever tried?",
-    madLib: "The main character's favorite food is __",
-    preWrittenAnswers: [
-      "dragon fruit ice cream",
-      "unicorn sushi",
-      "cloud cotton candy",
-      "rainbow spaghetti",
-      "moonbeam cookies"
-    ]
-  },
-  {
-    question: "What's your favorite way to stay entertained during a long trip?",
-    madLib: "The main character's mode of transportation is __",
-    preWrittenAnswers: [
-      "a flying carpet",
-      "a cloud surfing board",
-      "a teleportation device",
-      "a time-traveling bicycle",
-      "a magical train"
-    ]
-  },
-  {
-    question: "What's the most interesting dream you've ever had?",
-    madLib: "The main character's dream job is __",
-    preWrittenAnswers: [
-      "a professional dream interpreter",
-      "a lucid dreaming instructor",
-      "a dream architect",
-      "a nightmare tamer",
-      "a dreamscape designer"
-    ]
-  }
-]; 
+  ...ROUND_PROMPTS[1],
+  ...ROUND_PROMPTS[2],
+  ...ROUND_PROMPTS[3],
+  ...ROUND_PROMPTS[4]
+];
