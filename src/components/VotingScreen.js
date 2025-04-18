@@ -25,7 +25,7 @@ const VotingScreen = ({ userDrawing, onVoteComplete }) => {
       <Gallery 
         drawings={allDrawings} 
         onSelectDrawing={onVoteComplete}
-        showUserNames={true}
+        isJudge={true}
       />
     </div>
   );

@@ -5,6 +5,7 @@ class UserClient {
   constructor() {
     this.users = [];
     this.currentUser = null;
+    this.currentJudge = null;
   }
 
   // Mock function to generate random users
@@ -29,6 +30,45 @@ class UserClient {
 
   getAllUsers() {
     return this.users;
+  }
+
+  // Get the current judge
+  getCurrentJudge() {
+    return this.currentJudge;
+  }
+
+  // Select a random judge (50/50 chance for current user)
+  selectRandomJudge() {
+    // Reset all users to not be judge
+    this.users.forEach(user => user.setJudge(false));
+    if (this.currentUser) {
+      this.currentUser.setJudge(false);
+    }
+    
+    // 50/50 chance for current user to be judge
+    const isCurrentUserJudge = Math.random() < 0.5;
+    
+    if (isCurrentUserJudge && this.currentUser) {
+      this.currentUser.setJudge(true);
+      this.currentJudge = this.currentUser;
+      console.log("Current user is judge");
+    } else {
+      // Select a random mock user as judge
+      const mockUsers = this.users.filter(user => user !== this.currentUser);
+      if (mockUsers.length > 0) {
+        const randomIndex = Math.floor(Math.random() * mockUsers.length);
+        mockUsers[randomIndex].setJudge(true);
+        this.currentJudge = mockUsers[randomIndex];
+        console.log("Mock user is judge:", this.currentJudge.name);
+      } else {
+        // Fallback if no mock users
+        this.currentUser.setJudge(true);
+        this.currentJudge = this.currentUser;
+        console.log("Fallback: Current user is judge");
+      }
+    }
+    
+    return this.currentJudge;
   }
 
   // Assign a drawing to a user
