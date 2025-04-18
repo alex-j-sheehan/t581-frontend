@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Gallery from './components/Gallery';
 import WinnersGallery from './components/WinnersGallery';
+import EndPage from './components/EndPage';
 import { getRandomDrawings } from './data/sampleDrawings';
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     
     // App state
-    const [currentScreen, setCurrentScreen] = useState('drawing'); // 'drawing' or 'voting'
+    const [currentScreen, setCurrentScreen] = useState('drawing'); // 'drawing', 'voting', or 'end'
     const [userDrawing, setUserDrawing] = useState(null);
     const [galleryDrawings, setGalleryDrawings] = useState([]);
     const [winners, setWinners] = useState([]); // Track winning drawings
@@ -135,7 +136,14 @@ const App = () => {
 
     const handleSelectDrawing = (drawing) => {
         // Add the selected drawing to winners
-        setWinners(prev => [...prev, drawing]);
+        const newWinners = [...winners, drawing];
+        setWinners(newWinners);
+        
+        // Check if we've reached 6 panels
+        if (newWinners.length >= 6) {
+            setCurrentScreen('end');
+            return;
+        }
         
         // Reset the drawing state
         setPaths([]);
@@ -218,9 +226,16 @@ const App = () => {
         );
     };
 
+    // Render the end screen
+    const renderEndScreen = () => {
+        return <EndPage winners={winners} />;
+    };
+
     return (
         <div className="app-container">
-            {currentScreen === 'drawing' ? renderDrawingScreen() : renderVotingScreen()}
+            {currentScreen === 'drawing' && renderDrawingScreen()}
+            {currentScreen === 'voting' && renderVotingScreen()}
+            {currentScreen === 'end' && renderEndScreen()}
         </div>
     );
 };
