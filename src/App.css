@@ -200,6 +200,7 @@
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   margin-bottom: 1rem;
+  margin-right: 10rem;
   transition: border-color 0.3s ease;
 }
 
@@ -792,101 +793,173 @@
   100% { transform: translateY(-5px); }
 }
 
-/* Enhanced Comic Book Style Elements */
-.comic-title-banner {
-  background-color: #ff5722;
-  border: 5px solid #000;
-  border-radius: 10px;
-  padding: 10px 40px;
-  margin-bottom: 20px;
-  position: relative;
-  transform: rotate(-2deg);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
-  max-width: 90%;
+/* Comic Style Enhancements */
+:root {
+  --comic-border: 3px solid #000;
+  --comic-shadow: 4px 4px 0 #000;
+  --comic-bg: #fff;
+  --comic-accent: #ff6b6b;
 }
 
-.comic-title-banner::before,
-.comic-title-banner::after {
+body {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  background-color: #B2D8D8;
+  background-image: 
+    radial-gradient(circle, rgba(0,0,0,0.2) 3px, transparent 2px);
+  background-size: 30px 30px;
+  background-position: 0 0, 10px 10px;
+}
+
+.prompt-screen, .judge-waiting-screen, .waiting-for-judge-screen {
+  background-color: #B2D8D8;
+  background-image: 
+    radial-gradient(circle, rgba(0,0,0,0.15) 3px, transparent 2px);
+  background-size: 30px 30px;
+  background-position: 0 0, 10px 10px;
+}
+
+.question-container, .prompt-container {
+  background: var(--comic-bg);
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+  transform: rotate(-1deg);
+  position: relative;
+}
+
+.question-container::before, .prompt-container::before {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #fff;
-  border: 3px solid #000;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.comic-title-banner::before {
-  left: 10px;
-}
-
-.comic-title-banner::after {
-  right: 10px;
-}
-
-.game-complete-title {
-  color: white !important;
-  text-shadow: 3px 3px 0 #000 !important;
-  font-family: 'Comic Sans MS', cursive, sans-serif !important;
-  letter-spacing: 2px;
-  margin: 0 !important;
-}
-
-.thank-you-message {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background-color: #ffeb3b;
-  border: 3px solid #000;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px dashed #000;
   border-radius: 20px;
-  padding: 10px 20px;
-  display: inline-block;
-  transform: rotate(1deg);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
-.comic-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.question, .prompt {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   position: relative;
+  display: inline-block;
+}
+
+.question::after, .prompt::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--comic-accent);
+  transform: skewX(-15deg);
+}
+
+.answer-input {
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  transform: rotate(1deg);
+}
+
+.answer-input:focus {
+  border-color: var(--comic-accent);
+  box-shadow: 0 0 0 2px var(--comic-accent);
+}
+
+.player-card {
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+}
+
+.player-card:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 6px 6px 0 #000;
+}
+
+.player-avatar {
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+}
+
+.player-name {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+}
+
+.player-name::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--comic-accent);
+  transform: skewX(-15deg);
+}
+
+.timer {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  border: var(--comic-border);
+  box-shadow: var(--comic-shadow);
+  transform: rotate(2deg);
+  background: var(--comic-bg);
+  position: relative;
+}
+.name-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.speech-bubble {
+  position: relative;
+  background: var(--comic-bg);
+  border: var(--comic-border);
+  padding: 20px 30px;
+  border-radius: 25px;
+  max-width: 320px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  color: black;
+  box-shadow: var(--comic-shadow);
+  transform: rotate(-1deg);
   margin-bottom: 30px;
 }
 
-.sound-effect {
+.speech-bubble::after {
+  content: "";
   position: absolute;
-  right: 20px;
-  top: -20px;
-  background-color: #ffeb3b;
-  color: #f44336;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  font-weight: bold;
-  font-size: 2.5rem;
-  padding: 15px;
-  border: 3px solid #000;
-  border-radius: 50%;
-  transform: rotate(15deg);
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
-  animation: zoom-in 0.5s ease-out;
-  z-index: 100;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 15px 20px 0 20px;
+  border-style: solid;
+  border-color: var(--comic-bg) transparent transparent transparent;
+  width: 0;
+  z-index: 1;
 }
 
-@keyframes zoom-in {
-  0% { transform: scale(0) rotate(15deg); }
-  80% { transform: scale(1.2) rotate(15deg); }
-  100% { transform: scale(1) rotate(15deg); }
-}
-
-.panel-connector {
+.speech-bubble::before {
+  content: "";
   position: absolute;
-  right: -25px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
-  height: 50px;
-  justify-content: space-between;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 17px 22px 0 22px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  width: 0;
+  z-index: 0;
 }
 
 .connector-dot {
@@ -1048,4 +1121,4 @@
     transform: scale(1);
     opacity: 1;
   }
-} 
+}
