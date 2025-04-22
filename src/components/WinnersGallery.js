@@ -47,17 +47,41 @@ const WinnersGallery = ({ winners }) => {
   return (
     <div className="winners-gallery">
       <h3>Winners Gallery</h3>
-      <div className="winners-strip" style={{ display: 'flex', flexDirection: 'row', overflowX: 'auto' }}>
+      <div className="winners-strip" style={{ 
+        display: 'flex', 
+        flexDirection: 'row', 
+        overflowX: 'auto',
+        gap: '15px',
+        padding: '10px 5px'
+      }}>
         {winners.map((drawing, index) => (
-          <div key={`winner-${drawing.id}-${index}`} className="winner-item" style={{ flex: '0 0 auto' }}>
-            <div className="winner-number">#{index + 1}</div>
+          <div key={`winner-${drawing.id}-${index}`} className="winner-item" style={{ 
+            flex: '0 0 auto',
+            width: '200px'
+          }}>
+            <div className="winner-number">Round {index + 1}</div>
             <canvas
               ref={el => canvasRefs.current[index] = el}
               width={200}
               height={150}
               className="winner-canvas"
             />
-            <div className="winner-title">{drawing.title}</div>
+            <div className="panel-prompt" style={{
+              backgroundColor: '#f8f9fa',
+              padding: '5px 8px',
+              borderRadius: '5px',
+              margin: '5px 0',
+              fontSize: '0.8rem',
+              minHeight: '50px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+              wordBreak: 'break-word'
+            }}>
+              {drawing.prompt || `Round ${index + 1}`}
+            </div>
           </div>
         ))}
       </div>

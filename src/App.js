@@ -65,16 +65,6 @@ function App() {
     // Initialize with round number 1
     const [roundNumber, setRoundNumber] = useState(1);
 
-    const handleNameSubmitted = () => {
-        // After name is submitted, show the players intro screen
-        setCurrentScreen('players-intro');
-    };
-
-    const handlePlayersIntroComplete = () => {
-        // After players intro, go to the prompt screen
-        setCurrentScreen('prompt');
-    };
-
     const handlePromptComplete = (prompt, question) => {
         setCurrentPrompt(prompt);
         
@@ -93,13 +83,34 @@ function App() {
         // Reset auto-selected winner
         setAutoSelectedWinner(null);
         
-        // Select a random judge for this round
-        const judge = userClient.selectRandomJudge();
-        setCurrentJudge(judge);
-        setIsJudge(judge === userClient.getCurrentUser());
-        
         // Go directly to drawing screen
         setCurrentScreen('drawing');
+    };
+
+    // Start a new round - sets the judge for the current round
+    const startNewRound = () => {
+        // Select a random judge for this round
+        const judge = userClient.selectRandomJudge();
+        console.log("Selected judge:", judge ? judge.name : "none");
+        console.log("Current user:", userClient.getCurrentUser() ? userClient.getCurrentUser().name : "none");
+        console.log("Are they the same?", judge === userClient.getCurrentUser());
+        
+        setCurrentJudge(judge);
+        setIsJudge(judge === userClient.getCurrentUser());
+        console.log("Setting isJudge to:", judge === userClient.getCurrentUser());
+        
+        // Set prompt screen
+        setCurrentScreen('prompt');
+    }
+
+    const handleNameSubmitted = () => {
+        // After name is submitted, show the players intro screen
+        setCurrentScreen('players-intro');
+    };
+
+    const handlePlayersIntroComplete = () => {
+        // After players intro, start the first round
+        startNewRound();
     };
 
     const handleDrawingComplete = (drawing) => {
@@ -122,9 +133,14 @@ function App() {
     const handleVoteComplete = (selectedDrawing) => {
         // Only add the selected drawing to winners if the user is the judge and a drawing was selected
         if (isJudge && selectedDrawing) {
-            setWinners(prev => [...prev, selectedDrawing]);
-            console.log("Judge selected winner:", selectedDrawing);
-            setCurrentWinner(selectedDrawing);
+            // Add the current prompt to the selected drawing
+            const drawingWithPrompt = {
+                ...selectedDrawing,
+                prompt: currentPrompt
+            };
+            setWinners(prev => [...prev, drawingWithPrompt]);
+            console.log("Judge selected winner:", drawingWithPrompt);
+            setCurrentWinner(drawingWithPrompt);
         }
         
         // Clear auto-selected winner if it exists
@@ -137,9 +153,14 @@ function App() {
     const handleJudgeComplete = (autoSelectedWinner) => {
         // If an auto-selected winner was passed, add it to the winners array
         if (autoSelectedWinner) {
-            setWinners(prevWinners => [...prevWinners, autoSelectedWinner]);
-            console.log("Added auto-selected winner to winners array:", autoSelectedWinner);
-            setCurrentWinner(autoSelectedWinner);
+            // Add the current prompt to the auto-selected winner
+            const winnerWithPrompt = {
+                ...autoSelectedWinner,
+                prompt: currentPrompt
+            };
+            setWinners(prevWinners => [...prevWinners, winnerWithPrompt]);
+            console.log("Added auto-selected winner to winners array:", winnerWithPrompt);
+            setCurrentWinner(winnerWithPrompt);
         }
         
         // Show the winner showcase screen before moving to the next round
@@ -154,8 +175,8 @@ function App() {
         } else {
             // If not, increment the round number and continue
             setRoundNumber(prevRound => prevRound + 1);
-            // Return to prompt screen for next round
-            setCurrentScreen('prompt');
+            // Start a new round
+            startNewRound();
         }
     };
 
@@ -205,14 +226,16 @@ function App() {
             .filter(user => user && user.drawing && !user.drawing.isEmpty)
             .map(user => ({
                 ...user.drawing,
-                userName: user.name
+                userName: user.name,
+                userAvatar: user.avatar
             }));
             
         // Add current user's drawing if it exists and isn't empty
         if (currentUser && currentUser.drawing && !currentUser.drawing.isEmpty) {
             drawings.unshift({
                 ...currentUser.drawing,
-                userName: currentUser.name
+                userName: currentUser.name,
+                userAvatar: currentUser.avatar
             });
         }
         
@@ -243,12 +266,15 @@ function App() {
                 <PlayersIntroScreen onIntroComplete={handlePlayersIntroComplete} />
             )}
             {currentScreen === 'prompt' && (
-                <PromptScreen 
-                    onPromptComplete={handlePromptComplete} 
-                    usedPrompts={usedPrompts}
-                    roundNumber={roundNumber}
-                    isJudge={isJudge}
-                />
+                <>
+                    {console.log("About to render PromptScreen with isJudge =", isJudge)}
+                    <PromptScreen 
+                        onPromptComplete={handlePromptComplete} 
+                        usedPrompts={usedPrompts}
+                        roundNumber={roundNumber}
+                        isJudge={isJudge}
+                    />
+                </>
             )}
             {currentScreen === 'drawing' && (
                 <>
@@ -288,6 +314,7 @@ function App() {
                 <WinnerShowcaseScreen
                     winner={currentWinner}
                     onComplete={handleWinnerShowcaseComplete}
+                    prompt={currentPrompt}
                 />
             )}
             {currentScreen === 'end-game' && (

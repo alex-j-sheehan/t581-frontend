@@ -32,12 +32,6 @@ const PlayersIntroScreen = ({ onIntroComplete }) => {
     return () => clearInterval(timer);
   }, [onIntroComplete]);
   
-  // Generate a random color for each player
-  const getRandomColor = () => {
-    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F033FF', '#FF3333', '#33FFF3', '#F3FF33'];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-  
   return (
     <div className="players-intro-screen">
       <h1>Meet Your Fellow Artists!</h1>
@@ -50,11 +44,33 @@ const PlayersIntroScreen = ({ onIntroComplete }) => {
       <div className="players-grid">
         {players.map((player, index) => (
           <div key={player.id || index} className="player-card">
-            <div 
-              className="player-avatar" 
-              style={{ backgroundColor: getRandomColor() }}
-            >
-              {player.name.charAt(0).toUpperCase()}
+            <div className="player-avatar-container">
+              {player.avatar ? (
+                <img 
+                  src={player.avatar} 
+                  alt={`${player.name}'s avatar`} 
+                  className="player-avatar-image"
+                  style={{ width: '60px', height: '60px' }}
+                />
+              ) : (
+                <div 
+                  className="player-avatar-fallback"
+                  style={{ 
+                    backgroundColor: '#3357FF',
+                    width: '60px', 
+                    height: '60px', 
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '24px',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {player.name.charAt(0).toUpperCase()}
+                </div>
+              )}
             </div>
             <div className="player-name">{player.name}</div>
           </div>

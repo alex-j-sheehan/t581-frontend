@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const WinnerShowcaseScreen = ({ winner, onComplete }) => {
+const WinnerShowcaseScreen = ({ winner, onComplete, prompt }) => {
   const canvasRef = useRef(null);
   
   useEffect(() => {
@@ -53,7 +53,9 @@ const WinnerShowcaseScreen = ({ winner, onComplete }) => {
     <div className="winner-showcase-screen">
       <h1 className="winner-title">Winner!</h1>
       <div className="winner-container">
-        <h2>{winner?.userName || 'Anonymous'}'s Drawing</h2>
+        <div className="winner-header">
+          <h2>{prompt || 'Drawing challenge'}</h2>
+        </div>
         <canvas
           ref={canvasRef}
           width={600}

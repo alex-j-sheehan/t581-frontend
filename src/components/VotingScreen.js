@@ -13,14 +13,16 @@ const VotingScreen = ({ userDrawing, onVoteComplete, autoSelectedWinner, isJudge
       .filter(user => user && user.drawing && !user.drawing.isEmpty)
       .map(user => ({
         ...user.drawing,
-        userName: user.name
+        userName: user.name,
+        userAvatar: user.avatar
       }));
       
     // Add current user's drawing if it exists and isn't empty
     if (currentUser && currentUser.drawing && !currentUser.drawing.isEmpty) {
       drawings.unshift({
         ...currentUser.drawing,
-        userName: currentUser.name
+        userName: currentUser.name,
+        userAvatar: currentUser.avatar
       });
     }
     
@@ -51,7 +53,7 @@ const VotingScreen = ({ userDrawing, onVoteComplete, autoSelectedWinner, isJudge
           <h2>Winner Selected!</h2>
           <p>The judge has selected a winner for this round.</p>
           <div className="winner-display">
-            <h3>{autoSelectedWinner.userName}'s Drawing</h3>
+            <h3>Winning Drawing</h3>
             <canvas 
               width={400} 
               height={300} 

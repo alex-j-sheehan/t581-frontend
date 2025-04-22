@@ -74,7 +74,7 @@ const Gallery = ({ drawings, onSelectDrawing, isJudge = false }) => {
       <div className="gallery-grid">
         {drawings.map((drawing, index) => (
           <div key={drawing?.id || index} className={`gallery-item ${drawing?.isEmpty ? 'empty-drawing' : ''}`}>
-            <h3>{drawing?.title || 'Untitled'}</h3>
+            <h3>Drawing #{index + 1}</h3>
             <canvas
               ref={el => canvasRefs.current[index] = el}
               width={400}
