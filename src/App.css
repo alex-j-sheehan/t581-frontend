@@ -167,6 +167,16 @@
   background: #B2D8D8;
 }
 
+.prompt-screen-roulette-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .question-container {
   background: white;
   padding: 2rem;
@@ -907,4 +917,135 @@
 /* Fix position for the round label */
 .round-label {
   z-index: 20;
+}
+
+/* Prompt Roulette Component */
+.prompt-roulette {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: #B2D8D8;
+  text-align: center;
+}
+
+.roulette-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prompt-roulette h2 {
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+/* Wheel container */
+.wheel-container {
+  position: relative;
+  margin: 30px 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Arrow pointer */
+.picker-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #e74c3c;
+  font-size: 30px;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.3));
+  z-index: 10;
+  animation: pointer-pulse 1s infinite;
+}
+
+@keyframes pointer-pulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.2); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+/* Loading dots animation */
+.loading-dots {
+  display: inline-block;
+}
+
+.dot {
+  opacity: 0;
+  animation: dot-animation 1.4s infinite;
+  display: inline-block;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-animation {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Spinner animation */
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  height: 200px;
+}
+
+.spinner {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Result text animation */
+.result-text {
+  animation: scale-bounce 0.5s ease-out forwards;
+  color: #2c3e50;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+@keyframes scale-bounce {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 } 

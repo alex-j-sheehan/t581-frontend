@@ -9,6 +9,7 @@ import WaitingForJudgeScreen from './components/WaitingForJudgeScreen';
 import PlayersIntroScreen from './components/PlayersIntroScreen';
 import WinnerShowcaseScreen from './components/WinnerShowcaseScreen';
 import EndGameScreen from './components/EndGameScreen';
+import PromptRoulette from './components/PromptRoulette';
 import userClient from './data/UserClient';
 
 // Constants
@@ -246,6 +247,7 @@ function App() {
                     onPromptComplete={handlePromptComplete} 
                     usedPrompts={usedPrompts}
                     roundNumber={roundNumber}
+                    isJudge={isJudge}
                 />
             )}
             {currentScreen === 'drawing' && (
