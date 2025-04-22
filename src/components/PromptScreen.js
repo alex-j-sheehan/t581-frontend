@@ -154,14 +154,24 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJ
           </div>
           <h2>Answer this question:</h2>
           <p className="question">{currentPair.question}</p>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              value={userAnswer}
-              onChange={(e) => setUserAnswer(e.target.value)}
-              placeholder="Type your answer here..."
-              className="answer-input"
-            />
+          <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ width: '100%', paddingLeft: '30px', boxSizing: 'border-box' }}>
+              <input
+                type="text"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                placeholder="Type your answer here..."
+                className="answer-input"
+                style={{
+                  width: '85%',
+                  padding: '12px',
+                  fontSize: '16px',
+                  border: '1px solid #e66',
+                  borderRadius: '8px',
+                  marginBottom: '15px'
+                }}
+              />
+            </div>
             <button type="submit" className="submit-btn">
               Submit Answer
             </button>
