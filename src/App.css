@@ -810,7 +810,7 @@ body {
   background-position: 0 0, 10px 10px;
 }
 
-.prompt-screen, .judge-waiting-screen, .waiting-for-judge-screen {
+.prompt-screen, .judge-waiting-screen, .waiting-for-judge-screen, .players-intro-screen, .name-prompt {
   background-color: #B2D8D8;
   background-image: 
     radial-gradient(circle, rgba(0,0,0,0.15) 3px, transparent 2px);
@@ -1122,3 +1122,47 @@ body {
     opacity: 1;
   }
 }
+
+
+.speech-bubble {
+  position: relative;
+  background: var(--comic-bg);
+  border: var(--comic-border);
+  padding: 20px 30px;
+  border-radius: 25px;
+  max-width: 320px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  color: black;
+  box-shadow: var(--comic-shadow);
+  transform: rotate(-1deg);
+  margin-bottom: 30px;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 15px 20px 0 20px;
+  border-style: solid;
+  border-color: var(--comic-bg) transparent transparent transparent;
+  width: 0;
+  z-index: 1;
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 17px 22px 0 22px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+  width: 0;
+  z-index: 0;
+}
+

@@ -26,7 +26,7 @@ const NamePrompt = ({ onNameSubmitted }) => {
 
   return (
     <div className="name-prompt">
-      <div className="comic-title">
+      <div className="speech-bubble">
         LAUGH LAB GAMES
       </div>
       <h2>Welcome to the Drawing Game!</h2>
