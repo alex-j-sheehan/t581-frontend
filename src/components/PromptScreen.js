@@ -3,6 +3,7 @@ import { ROUND_PROMPTS } from '../constants/prompts';
 import PromptRoulette from './PromptRoulette';
 
 const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJudge = false }) => {
+  console.log("PromptScreen: isJudge =", isJudge);
   const [currentPair, setCurrentPair] = useState(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [finalPrompt, setFinalPrompt] = useState('');
@@ -13,6 +14,7 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJ
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
 
   useEffect(() => {
+    console.log("PromptScreen useEffect: isJudge =", isJudge);
     // Get round-specific prompts
     const roundPrompts = ROUND_PROMPTS[roundNumber] || ROUND_PROMPTS[1];
     
@@ -28,7 +30,7 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJ
       const randomIndex = Math.floor(Math.random() * availablePrompts.length);
       setCurrentPair(availablePrompts[randomIndex]);
     }
-  }, [usedPrompts, roundNumber, onPromptComplete]);
+  }, [usedPrompts, roundNumber, onPromptComplete, isJudge]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -132,6 +134,9 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJ
 
   if (!currentPair) return null;
 
+  console.log("PromptScreen rendering: isJudge =", isJudge);
+  console.log("Rendering states: showRoulette =", showRoulette, "showPrompt =", showPrompt);
+
   return (
     <div className="prompt-screen">
       {!showRoulette && !showPrompt ? (
@@ -226,6 +231,7 @@ const PromptScreen = ({ onPromptComplete, usedPrompts = [], roundNumber = 1, isJ
             Round {roundNumber}
           </div>
           
+          {console.log("About to render the final prompt screen. isJudge =", isJudge)}
           {isJudge ? (
             <>
               <div 

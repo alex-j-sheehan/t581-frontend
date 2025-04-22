@@ -4,6 +4,7 @@ class User {
     this.name = name;
     this.drawing = null;
     this.isJudge = false;
+    this.avatar = null; // Path to the user's avatar image
   }
 
   setDrawing(drawing) {
@@ -12,6 +13,10 @@ class User {
 
   setJudge(isJudge) {
     this.isJudge = isJudge;
+  }
+
+  setAvatar(avatarPath) {
+    this.avatar = avatarPath;
   }
 }
 

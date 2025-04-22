@@ -32,6 +32,16 @@ module.exports = {
             outputPath: 'sounds/'
           }
         }
+      },
+      {
+        test: /\.svg$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'imgs/'
+          }
+        }
       }
     ]
   },
