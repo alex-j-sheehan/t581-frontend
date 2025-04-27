@@ -1122,3 +1122,229 @@ body {
     opacity: 1;
   }
 }
+
+/* Bubble Adding Screen Styles */
+.bubble-adding-screen {
+  background-color: #B2D8D8;
+  background-image: 
+    radial-gradient(circle, rgba(0,0,0,0.15) 3px, transparent 2px);
+  background-size: 30px 30px;
+  background-position: 0 0, 10px 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bubble-adding-screen h1 {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.bubble-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.bubble-text-input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.bubble-text-area {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.bubble-text-area:focus {
+  outline: none;
+  border-color: #ff6b6b;
+}
+
+.bubble-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.bubble-type-btn {
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bubble-type-btn.active {
+  background-color: #e6f7ff;
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.bubble-type-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Remove pointer direction controls */
+.pointer-direction-controls {
+  display: none;
+}
+
+.pointer-label {
+  display: none;
+}
+
+.direction-buttons {
+  display: none;
+}
+
+.direction-btn {
+  display: none;
+}
+
+.direction-btn:hover {
+  display: none;
+}
+
+.direction-btn.active {
+  display: none;
+}
+
+/* End of removed controls */
+
+.delete-bubble-btn {
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  margin: 0 10px;
+}
+
+.delete-bubble-btn:hover {
+  background-color: #c82333;
+}
+
+.delete-bubble-btn:disabled {
+  background-color: #f5c6cb;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.bubble-instructions {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 10px 0;
+}
+
+.bubble-instructions p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Help button styles */
+.help-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: help;
+  margin-left: 10px;
+  position: relative;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-container {
+  position: relative;
+  display: inline-block;
+}
+
+.help-button:hover {
+  background-color: #5a6268;
+}
+
+/* Custom tooltip styles */
+.custom-tooltip {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  min-width: 280px;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left;
+  animation: fadeIn 0.3s ease;
+}
+
+.custom-tooltip p {
+  margin: 6px 0;
+}
+
+.custom-tooltip::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The title attribute will be displayed as a tooltip by default, 
+   but we can enhance with a better custom tooltip if needed */
+
+.canvas-container {
+  display: block;
+  cursor: crosshair;
+}
+
+.canvas-container.dragging-pointer {
+  cursor: grab;
+}

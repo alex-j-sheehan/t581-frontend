@@ -28,7 +28,7 @@ const VotingScreen = ({ userDrawing, onVoteComplete, autoSelectedWinner, isJudge
     
     return drawings;
   };
-  
+
   // If we have an auto-selected winner and user is not judge, show a message
   useEffect(() => {
     if (autoSelectedWinner && !isJudge) {
@@ -41,9 +41,6 @@ const VotingScreen = ({ userDrawing, onVoteComplete, autoSelectedWinner, isJudge
       return () => clearTimeout(timer);
     }
   }, [autoSelectedWinner, onVoteComplete, isJudge]);
-  
-  // Get all drawings for the gallery
-  const drawings = getAllDrawings();
   
   return (
     <div className="voting-screen">
