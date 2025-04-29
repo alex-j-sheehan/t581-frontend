@@ -23,10 +23,10 @@ const DrawingScreen = ({ onDrawingComplete, winners, prompt, isJudgeMode = false
   const colors = {
     black: 'black',
     red: 'red',
+    orange: '#ff5500',
+    yellow: '#e6b800',
+    green: '#00b300',
     blue: 'blue',
-    orange: 'orange',
-    yellow: 'yellow',
-    green: 'green',
     purple: 'purple',
     pink: 'pink',
     grey: 'grey'
