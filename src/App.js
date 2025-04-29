@@ -10,6 +10,7 @@ import PlayersIntroScreen from './components/PlayersIntroScreen';
 import WinnerShowcaseScreen from './components/WinnerShowcaseScreen';
 import EndGameScreen from './components/EndGameScreen';
 import PromptRoulette from './components/PromptRoulette';
+import BubbleAddingScreen from './components/BubbleAddingScreen';
 import userClient from './data/UserClient';
 
 // Constants
@@ -53,6 +54,7 @@ function App() {
     // App state
     const [currentScreen, setCurrentScreen] = useState('name'); // Start with name prompt
     const [userDrawing, setUserDrawing] = useState(null);
+    const [assignedDrawing, setAssignedDrawing] = useState(null); // Drawing assigned for adding bubbles
     const [winners, setWinners] = useState([]); // Track winning drawings
     const [currentPrompt, setCurrentPrompt] = useState('');
     const [isJudge, setIsJudge] = useState(false);
@@ -122,6 +124,48 @@ function App() {
             currentUser.setDrawing(drawing);
         }
         
+        // Generate mock drawings for all users if they don't have drawings yet
+        userClient.generateMockDrawings();
+        
+        // Randomly assign a drawing to the user for adding bubbles
+        // The user should not get their own drawing
+        const allDrawings = getAllDrawings();
+        const otherDrawings = allDrawings.filter(d => 
+            !currentUser || d.userName !== currentUser.name
+        );
+        
+        if (otherDrawings.length > 0) {
+            // Randomly select a drawing from other users
+            const randomIndex = Math.floor(Math.random() * otherDrawings.length);
+            const selectedDrawing = otherDrawings[randomIndex];
+            
+            console.log("Assigned drawing for bubbles:", selectedDrawing);
+            setAssignedDrawing(selectedDrawing);
+            
+            // Move to the bubble adding screen
+            setCurrentScreen('bubble-adding');
+        } else {
+            // If no other drawings available (which shouldn't happen), skip to voting
+            setCurrentScreen('voting');
+        }
+    };
+    
+    const handleBubblesComplete = (drawingWithBubbles) => {
+        // Store the drawing with bubbles
+        setAssignedDrawing(drawingWithBubbles);
+        
+        // Update the drawing with bubbles in the user client
+        const allUsers = userClient.getAllUsers();
+        const drawingOwner = allUsers.find(user => 
+            user.drawing && drawingWithBubbles.id === user.drawing.id
+        );
+        
+        if (drawingOwner) {
+            // Update the owner's drawing with the new version that has bubbles
+            drawingOwner.setDrawing(drawingWithBubbles);
+        }
+        
+        // Move to voting screen
         setCurrentScreen('voting');
     };
 
@@ -204,15 +248,20 @@ function App() {
     const handleAutoSelectWinner = () => {
         const allDrawings = getAllDrawings();
         if (allDrawings.length > 0) {
-            // Randomly select a drawing as the winner
-            const randomIndex = Math.floor(Math.random() * allDrawings.length);
-            const selectedDrawing = allDrawings[randomIndex];
+            // Look for a drawing that has bubbles property (this is the one the player added bubbles to)
+            const bubbleDrawing = allDrawings.find(drawing => drawing.bubbles && drawing.bubbles.length > 0);
             
-            // Store the auto-selected winner
-            setAutoSelectedWinner(selectedDrawing);
-            
-            // Log for debugging
-            console.log("Auto-selected winner:", selectedDrawing);
+            if (bubbleDrawing) {
+                // Always select the drawing with bubbles as the winner
+                setAutoSelectedWinner(bubbleDrawing);
+                console.log("Auto-selected the player's bubble drawing:", bubbleDrawing);
+            } else {
+                // Fallback: select a random drawing if none have bubbles
+                const randomIndex = Math.floor(Math.random() * allDrawings.length);
+                const selectedDrawing = allDrawings[randomIndex];
+                setAutoSelectedWinner(selectedDrawing);
+                console.log("No drawing with bubbles found, selecting random winner:", selectedDrawing);
+            }
         }
     };
 
@@ -291,6 +340,14 @@ function App() {
                         />
                     )}
                 </>
+            )}
+            {currentScreen === 'bubble-adding' && !isJudge && (
+                <BubbleAddingScreen 
+                    drawing={assignedDrawing}
+                    winners={winners}
+                    prompt={currentPrompt}
+                    onBubblesComplete={handleBubblesComplete}
+                />
             )}
             {currentScreen === 'voting' && (
                 <>
