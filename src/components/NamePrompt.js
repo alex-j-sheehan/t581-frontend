@@ -29,22 +29,25 @@ const NamePrompt = ({ onNameSubmitted }) => {
       <div className="comic-title">
         LAUGH LAB GAMES
       </div>
-      <h2>Welcome to the Drawing Game!</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
-            className="name-input"
-          />
-          {error && <p className="error">{error}</p>}
-        </div>
-        <button type="submit" className="submit-button">
-          Start Game
-        </button>
-      </form>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+        <h2>Welcome to the Drawing Game!</h2>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '300px' }}>
+          <div className="input-group" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+              className="name-input"
+              style={{ width: '100%' }}
+            />
+            {error && <p className="error">{error}</p>}
+          </div>
+          <button type="submit" className="submit-button">
+            Start Game
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
