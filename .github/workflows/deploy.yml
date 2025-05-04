@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # or whatever your main branch is
+      - main
 
 jobs:
   deploy:
@@ -15,16 +15,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # or your preferred Node version
+          node-version: '18'
       
       - name: Install dependencies
         run: npm install
       
       - name: Build
-        run: npm run build  # This should run your webpack build
+        run: npm run build
+
+      - name: Create .nojekyll file
+        run: touch dist/.nojekyll
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: dist
+          clean: true
