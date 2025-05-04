@@ -6,6 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/t581-frontend/',
   },
   module: {
     rules: [
@@ -62,4 +63,4 @@ module.exports = {
     port: 3000,
     hot: true
   }
-}; 
+};
