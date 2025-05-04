@@ -192,6 +192,22 @@ body {
     transform: rotate(2deg);
 }
 
+.presented-by {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #555;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    transform: rotate(-2deg);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
 .name-prompt {
   display: flex;
   flex-direction: column;

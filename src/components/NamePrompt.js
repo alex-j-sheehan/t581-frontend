@@ -27,7 +27,10 @@ const NamePrompt = ({ onNameSubmitted }) => {
   return (
     <div className="name-prompt">
       <div className="comic-title">
-        LAUGH LAB GAMES
+        Madly Illustrated
+      </div>
+      <div className="presented-by">
+        ✨ presented by laugh lab games ✨
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
         <h2>Welcome to the Drawing Game!</h2>
