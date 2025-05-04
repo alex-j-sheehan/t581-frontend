@@ -1,0 +1,162 @@
+/*! ./arcTail */
+
+/*! ./bubble */
+
+/*! ./captionBubble */
+
+/*! ./circleBubble */
+
+/*! ./comical */
+
+/*! ./curveTail */
+
+/*! ./handle */
+
+/*! ./lineTail */
+
+/*! ./node/extend.js */
+
+/*! ./node/self.js */
+
+/*! ./random */
+
+/*! ./speechBubble */
+
+/*! ./tail */
+
+/*! ./thoughtBubble */
+
+/*! ./thoughtTail */
+
+/*! ./uniqueId */
+
+/*! ./utilities */
+
+/*! acorn */
+
+/*! exports provided: Node, Parser, Position, SourceLocation, TokContext, Token, TokenType, defaultOptions, getLineInfo, isIdentifierChar, isIdentifierStart, isNewLine, keywordTypes, lineBreak, lineBreakG, nonASCIIwhitespace, parse, parseExpressionAt, tokContexts, tokTypes, tokenizer, version */
+
+/*! no static exports found */
+
+/*! paper */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/*!*********************!*\
+  !*** ./src/tail.ts ***!
+  \*********************/
+
+/*!**********************!*\
+  !*** ./src/index.ts ***!
+  \**********************/
+
+/*!***********************!*\
+  !*** ./src/bubble.ts ***!
+  \***********************/
+
+/*!***********************!*\
+  !*** ./src/handle.ts ***!
+  \***********************/
+
+/*!***********************!*\
+  !*** ./src/random.ts ***!
+  \***********************/
+
+/*!************************!*\
+  !*** ./src/arcTail.ts ***!
+  \************************/
+
+/*!************************!*\
+  !*** ./src/comical.ts ***!
+  \************************/
+
+/*!*************************!*\
+  !*** ./src/lineTail.ts ***!
+  \*************************/
+
+/*!*************************!*\
+  !*** ./src/uniqueId.ts ***!
+  \*************************/
+
+/*!**************************!*\
+  !*** ./src/curveTail.ts ***!
+  \**************************/
+
+/*!**************************!*\
+  !*** ./src/utilities.ts ***!
+  \**************************/
+
+/*!****************************!*\
+  !*** ./src/thoughtTail.ts ***!
+  \****************************/
+
+/*!*****************************!*\
+  !*** ./src/circleBubble.ts ***!
+  \*****************************/
+
+/*!*****************************!*\
+  !*** ./src/speechBubble.ts ***!
+  \*****************************/
+
+/*!******************************!*\
+  !*** ./src/captionBubble.ts ***!
+  \******************************/
+
+/*!******************************!*\
+  !*** ./src/thoughtBubble.ts ***!
+  \******************************/
+
+/*!********************************!*\
+  !*** ./node/self.js (ignored) ***!
+  \********************************/
+
+/*!**********************************!*\
+  !*** ./node/extend.js (ignored) ***!
+  \**********************************/
+
+/*!*******************************************!*\
+  !*** ./node_modules/acorn/dist/acorn.mjs ***!
+  \*******************************************/
+
+/*!***********************************************!*\
+  !*** ./node_modules/paper/dist/paper-full.js ***!
+  \***********************************************/
+
+/**
+ * @license React
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
